@@ -1,0 +1,44 @@
+<mat-card style="width:500px; margin:auto; margin-top:5%;">
+    <div style=" display: flex; flex-direction: column;">
+        <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput [(ngModel)]="this.fName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput [(ngModel)]="this.lName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email Address" [(ngModel)]="this.email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" [(ngModel)]="this.password">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Birth Date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="this.birthDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Gender</mat-label>
+            <mat-select [(ngModel)]="this.gender">
+                <mat-option value="Male">
+                    Male
+                </mat-option>
+                <mat-option value="Female">
+                    Female
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button type="button" class="btn btn-outline-success" (click)="registerAction()">Register</button>
+    </div>
+</mat-card>

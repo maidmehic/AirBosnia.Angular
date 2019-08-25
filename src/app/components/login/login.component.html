@@ -1,0 +1,47 @@
+<form>
+    <div style="width:500px; margin:auto; margin-top: 15%;">
+        <div *ngIf="this.errorMsg" class="alert alert-danger" role="alert">
+            {{this.errorMsg}}
+        </div>
+
+        <mat-card>
+            <div style=" display: flex; flex-direction: column;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput [(ngModel)]="this.username" [formControl]="emailFormControl"
+                        [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="margin-top: 5px;">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" [(ngModel)]="this.password" [formControl]="passwordFormControl">
+                    <mat-error
+                        *ngIf="passwordFormControl.hasError('required') && !emailFormControl.hasError('minLength')">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+                        Password should be atleast 4 characters
+                    </mat-error>
+                </mat-form-field>
+
+                <button type="submit" style="margin-top: 10px;" class="btn btn-outline-success" (click)="loginAction()">
+                    <span *ngIf="this.spinner" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                    <span *ngIf="!this.spinner">Log In</span>
+                </button>
+
+            </div>
+        </mat-card>
+
+        <mat-card style="width:500px; margin:auto; margin-top: 20px;">
+            Don't have an account?
+            <a routerLink="/register" style="text-decoration: none; color: green;">Register now</a>
+        </mat-card>
+    </div>
+</form>
