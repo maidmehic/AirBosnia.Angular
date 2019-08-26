@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { IUserDetails } from 'src/app/models/IUserDetails';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
     this.spinner = true;
     this.loginService.validateCredentials(this.username, this.password).subscribe(
       (response: IUserDetails) => {
-        console.log(response.Email);
+        console.log(response);
         this.spinner = false;
       },
       (error) => {
