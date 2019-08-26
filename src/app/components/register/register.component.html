@@ -1,44 +1,76 @@
-<mat-card style="width:500px; margin:auto; margin-top:5%;">
-    <div style=" display: flex; flex-direction: column;">
-        <mat-form-field appearance="outline">
-            <mat-label>First Name</mat-label>
-            <input matInput [(ngModel)]="this.fName">
-        </mat-form-field>
+<form>
+    <mat-card style="width:500px; margin:auto; margin-top:5%;">
+        <div style=" display: flex; flex-direction: column;">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput [(ngModel)]="this.fName" name="fName" [formControl]="fNameFormControl"
+                    [errorStateMatcher]="matcher">
+                <mat-error *ngIf="fNameFormControl.hasError('required')">
+                    First name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Last Name</mat-label>
-            <input matInput [(ngModel)]="this.lName">
-        </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-top: 10px;">
+                <mat-label>Last Name</mat-label>
+                <input matInput [(ngModel)]="this.lName" name="lName" [formControl]="lNameFormControl"
+                    [errorStateMatcher]="matcher">
+                <mat-error *ngIf="lNameFormControl.hasError('required')">
+                    last name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Email Address</mat-label>
-            <input matInput placeholder="Email Address" [(ngModel)]="this.email">
-        </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-top: 10px;">
+                <mat-label>Email Address</mat-label>
+                <input matInput placeholder="Email Address" [formControl]="emailFormControl"
+                    [errorStateMatcher]="matcher" [(ngModel)]="this.email" name="email">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" [(ngModel)]="this.password">
-        </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-top: 10px;">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" [(ngModel)]="this.password" [formControl]="passwordFormControl"
+                    [errorStateMatcher]="matcher" name="password">
+                <mat-error *ngIf="passwordFormControl.hasError('required') && !emailFormControl.hasError('minLength')">
+                    Password is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+                    Password should be atleast 4 characters
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Birth Date</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="this.birthDate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-top: 10px;">
+                <mat-label>Birth Date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="this.birthDate" name="birthDate"
+                    [formControl]="birthDateFormControl" [errorStateMatcher]="matcher">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="birthDateFormControl.hasError('required')">
+                    Birth date is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Gender</mat-label>
-            <mat-select [(ngModel)]="this.gender">
-                <mat-option value="Male">
-                    Male
-                </mat-option>
-                <mat-option value="Female">
-                    Female
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-top: 10px;">
+                <mat-label>Gender</mat-label>
+                <mat-select [(ngModel)]="this.gender" name="gender" [formControl]="genderFormControl"
+                    [errorStateMatcher]="matcher">
+                    <mat-option value="Male">
+                        Male
+                    </mat-option>
+                    <mat-option value="Female">
+                        Female
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="genderFormControl.hasError('required')">
+                    Gender is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <button type="button" class="btn btn-outline-success" (click)="registerAction()">Register</button>
-    </div>
-</mat-card>
+            <button type="submit" class="btn btn-outline-success" style="margin-top: 10px;" (click)="registerAction()">Register</button>
+        </div>
+    </mat-card>
+</form>
