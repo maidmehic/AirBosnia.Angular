@@ -1,4 +1,4 @@
-export class IUserDetails {
+export class UserDetails {
     constructor(
         public KorisnikID: number,
         public Ime: string,

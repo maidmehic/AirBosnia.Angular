@@ -1,5 +1,8 @@
 <form>
     <div style="width:500px; margin:auto; margin-top: 15%;">
+        <div *ngIf="this.successfulRegistration" class="alert alert-success" role="alert">
+            {{this.successfulRegistration}}
+        </div>
         <div *ngIf="this.errorMsg" class="alert alert-danger" role="alert">
             {{this.errorMsg}}
         </div>
@@ -8,8 +11,7 @@
             <div style=" display: flex; flex-direction: column;">
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input matInput [(ngModel)]="this.username" [formControl]="emailFormControl"
-                      >
+                    <input matInput [(ngModel)]="this.username" [formControl]="emailFormControl">
                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                         Please enter a valid email address
                     </mat-error>
