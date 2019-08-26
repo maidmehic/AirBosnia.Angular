@@ -1,5 +1,8 @@
 <form>
     <mat-card style="width:500px; margin:auto; margin-top:5%;">
+        <div *ngIf="this.errorMsg" class="alert alert-danger" role="alert">
+            {{this.errorMsg}}
+        </div>
         <div style=" display: flex; flex-direction: column;">
             <mat-form-field appearance="outline">
                 <mat-label>First Name</mat-label>
@@ -45,8 +48,8 @@
 
             <mat-form-field appearance="outline" style="margin-top: 10px;">
                 <mat-label>Birth Date</mat-label>
-                <input matInput [matDatepicker]="picker" [(ngModel)]="this.birthDate" name="birthDate"
-                    [formControl]="birthDateFormControl" [errorStateMatcher]="matcher">
+                <input matInput [matDatepicker]="picker" (click)="picker.open()" readonly [(ngModel)]="this.birthDate"
+                    name="birthDate" [formControl]="birthDateFormControl" [errorStateMatcher]="matcher">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="birthDateFormControl.hasError('required')">
@@ -70,7 +73,11 @@
                 </mat-error>
             </mat-form-field>
 
-            <button type="submit" class="btn btn-outline-success" style="margin-top: 10px;" (click)="registerAction()">Register</button>
+            <button type="submit" class="btn btn-outline-success" style="margin-top: 10px;" (click)="registerAction()">
+                <span *ngIf="!this.spinner">Register</span>
+                <span *ngIf="this.spinner" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
         </div>
     </mat-card>
 </form>

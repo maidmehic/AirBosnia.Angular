@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LoginService } from 'src/app/services/login.service';
-import { IUserDetails } from 'src/app/models/IUserDetails';
+import { UserDetails } from 'src/app/models/UserDetails';
 import { Router } from '@angular/router';
 
 
@@ -27,7 +27,12 @@ export class RegisterComponent implements OnInit {
   gender: string;
   birthDate: Date;
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  errorMsg: string;
+  spinner: boolean;
+
+  constructor(private loginService: LoginService, private router: Router) {
+    this.spinner = false;
+  }
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -66,13 +71,18 @@ export class RegisterComponent implements OnInit {
       || this.fNameFormControl.hasError('required') || this.lNameFormControl.hasError('required') || this.birthDateFormControl.hasError('required') || this.genderFormControl.hasError('required'))
       return;
 
-    this.loginService.register(new IUserDetails(0, this.fName, this.lName, this.email, this.password, this.birthDate, this.gender)).subscribe(
-      (response: IUserDetails) => {
+    this.spinner = true;
+    this.loginService.register(new UserDetails(0, this.fName, this.lName, this.email, this.password, this.birthDate, this.gender)).subscribe(
+      (response: UserDetails) => {
         console.log(response);
+        this.spinner = false;
+        this.loginService.successfulRegistration="Thank You for registering on page. Enter Your credentials below and Log In for more features."
         this.router.navigateByUrl('/login');
       },
       (error) => {
         console.log(error);
+        this.spinner = false;
+        this.errorMsg = "Something went wrong. Please try again."
       }
     )
   }
