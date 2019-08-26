@@ -9,7 +9,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput [(ngModel)]="this.username" [formControl]="emailFormControl"
-                        [errorStateMatcher]="matcher">
+                      >
                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                         Please enter a valid email address
                     </mat-error>
@@ -20,7 +20,8 @@
 
                 <mat-form-field appearance="outline" style="margin-top: 5px;">
                     <mat-label>Password</mat-label>
-                    <input matInput type="password" [(ngModel)]="this.password" [formControl]="passwordFormControl">
+                    <input matInput type="password" [(ngModel)]="this.password" [errorStateMatcher]="matcher"
+                        [formControl]="passwordFormControl">
                     <mat-error
                         *ngIf="passwordFormControl.hasError('required') && !emailFormControl.hasError('minLength')">
                         Password is <strong>required</strong>
